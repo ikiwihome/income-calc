@@ -12,15 +12,15 @@
     "社保计算",
     "公积金计算"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "ikiwi <ikiwicc@gmail.com>",
   "license": "MIT",
   "homepage": "https://salary.ikimi.cc",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/income-calculator.git"
+    "url": "https://github.com/ikiwihome/income-calc.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/income-calculator/issues"
+    "url": "https://github.com/ikiwihome/income-calc/issues"
   },
   "scripts": {
     "tauri:build": "pnpm tauri build",
