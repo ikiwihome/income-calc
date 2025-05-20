@@ -1,0 +1,245 @@
+{
+  "cities": {
+    "上海": {
+      "insuranceRates": {
+        "pensionPercentage": 8,
+        "medicalPercentage": 2,
+        "unemploymentPercentage": 0.5,
+        "HousingFundPercentage": 7,
+        "supplementHousingFundPercentage": 0
+      },
+  "baseConfig": [
+    {
+      "year": 2023,
+      "periods": [
+        {
+          "startMonth": 1,
+          "endMonth": 6,
+          "baseMin": 6520,
+          "baseMax": 24188,
+          "housingFundRates": [
+            {
+              "rate": 7,
+              "minBase": 362,
+              "maxBase": 4786
+            },
+            {
+              "rate": 6,
+              "minBase": 310,
+              "maxBase": 4102
+            },
+            {
+              "rate": 5,
+              "minBase": 260,
+              "maxBase": 3418
+            },
+            {
+              "rate": 4,
+              "minBase": 208,
+              "maxBase": 2736
+            },
+            {
+              "rate": 3,
+              "minBase": 156,
+              "maxBase": 2052
+            },
+            {
+              "rate": 2,
+              "minBase": 104,
+              "maxBase": 1368
+            },
+            {
+              "rate": 1,
+              "minBase": 52,
+              "maxBase": 684
+            }
+          ]
+        },
+        {
+          "startMonth": 7,
+          "endMonth": 12,
+          "baseMin": 7310,
+          "baseMax": 36549,
+          "housingFundRates": [
+            {
+              "rate": 7,
+              "minBase": 362,
+              "maxBase": 5116
+            },
+            {
+              "rate": 6,
+              "minBase": 310,
+              "maxBase": 4386
+            },
+            {
+              "rate": 5,
+              "minBase": 260,
+              "maxBase": 3654
+            },
+            {
+              "rate": 4,
+              "minBase": 208,
+              "maxBase": 2924
+            },
+            {
+              "rate": 3,
+              "minBase": 156,
+              "maxBase": 2192
+            },
+            {
+              "rate": 2,
+              "minBase": 104,
+              "maxBase": 1462
+            },
+            {
+              "rate": 1,
+              "minBase": 52,
+              "maxBase": 730
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "periods": [
+        {
+          "startMonth": 1,
+          "endMonth": 6,
+          "baseMin": 7310,
+          "baseMax": 36549,
+          "housingFundRates": [
+            {
+              "rate": 7,
+              "minBase": 362,
+              "maxBase": 5116
+            },
+            {
+              "rate": 6,
+              "minBase": 310,
+              "maxBase": 4386
+            },
+            {
+              "rate": 5,
+              "minBase": 260,
+              "maxBase": 3654
+            },
+            {
+              "rate": 4,
+              "minBase": 208,
+              "maxBase": 2924
+            },
+            {
+              "rate": 3,
+              "minBase": 156,
+              "maxBase": 2192
+            },
+            {
+              "rate": 2,
+              "minBase": 104,
+              "maxBase": 1462
+            },
+            {
+              "rate": 1,
+              "minBase": 52,
+              "maxBase": 730
+            }
+          ]
+        },
+        {
+          "startMonth": 7,
+          "endMonth": 12,
+          "baseMin": 7384,
+          "baseMax": 36921,
+          "housingFundRates": [
+            {
+              "rate": 7,
+              "minBase": 376,
+              "maxBase": 5168
+            },
+            {
+              "rate": 6,
+              "minBase": 322,
+              "maxBase": 4430
+            },
+            {
+              "rate": 5,
+              "minBase": 270,
+              "maxBase": 3692
+            },
+            {
+              "rate": 4,
+              "minBase": 216,
+              "maxBase": 2954
+            },
+            {
+              "rate": 3,
+              "minBase": 162,
+              "maxBase": 2216
+            },
+            {
+              "rate": 2,
+              "minBase": 108,
+              "maxBase": 1476
+            },
+            {
+              "rate": 1,
+              "minBase": 54,
+              "maxBase": 738
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 2025,
+      "periods": [
+        {
+          "startMonth": 1,
+          "endMonth": 12,
+          "baseMin": 7384,
+          "baseMax": 36921,
+          "housingFundRates": [
+            {
+              "rate": 7,
+              "minBase": 376,
+              "maxBase": 5168
+            },
+            {
+              "rate": 6,
+              "minBase": 322,
+              "maxBase": 4430
+            },
+            {
+              "rate": 5,
+              "minBase": 270,
+              "maxBase": 3692
+            },
+            {
+              "rate": 4,
+              "minBase": 216,
+              "maxBase": 2954
+            },
+            {
+              "rate": 3,
+              "minBase": 162,
+              "maxBase": 2216
+            },
+            {
+              "rate": 2,
+              "minBase": 108,
+              "maxBase": 1476
+            },
+            {
+              "rate": 1,
+              "minBase": 54,
+              "maxBase": 738
+            }
+          ]
+        }
+      ]
+    }
+      ]
+    }
+  }
+}

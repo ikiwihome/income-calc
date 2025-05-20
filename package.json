@@ -1,0 +1,46 @@
+{
+  "name": "income-calc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "工资税后收入计算器 - 一个可以精确到分的税后收入计算器",
+  "keywords": [
+    "工资计算器",
+    "税后工资",
+    "个税计算",
+    "五险一金",
+    "社保计算",
+    "公积金计算"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "homepage": "https://salary.ikimi.cc",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/income-calculator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/income-calculator/issues"
+  },
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^3.17.3",
+    "typescript": "^5.6.3",
+    "vue": "^3.5.14",
+    "vue-router": "^4.5.1"
+  },
+  "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321",
+  "devDependencies": {
+    "@nuxtjs/robots": "^4.0.0",
+    "@nuxtjs/sitemap": "^5.0.0",
+    "@types/node": "^22.15.19",
+    "@vue/runtime-core": "^3.5.14",
+    "vite": "^6.3.5"
+  }
+}
