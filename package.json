@@ -23,6 +23,7 @@
     "url": "https://github.com/yourusername/income-calculator/issues"
   },
   "scripts": {
+    "tauri:build": "pnpm tauri build",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -39,6 +40,7 @@
   "devDependencies": {
     "@nuxtjs/robots": "^4.0.0",
     "@nuxtjs/sitemap": "^5.0.0",
+    "@tauri-apps/cli": "^2.5.0",
     "@types/node": "^22.15.19",
     "@vue/runtime-core": "^3.5.14",
     "vite": "^6.3.5"

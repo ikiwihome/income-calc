@@ -2,17 +2,27 @@
 import { defineNuxtConfig } from 'nuxt/config'
 
 export default defineNuxtConfig({
-  // @ts-ignore - site config is valid but not in types
-  site: {
-    url: 'https://salary.ikimi.cc',
+  nitro: {
+    preset: 'static',
+    compressPublicAssets: true,
+    prerender: {
+      routes: ['/', '/sitemap.xml'],
+      crawlLinks: true
+    },
+    routeRules: {
+      '/**': { 
+        headers: {
+          'X-Frame-Options': 'DENY',
+          'X-Content-Type-Options': 'nosniff',
+          'Referrer-Policy': 'strict-origin-when-cross-origin',
+          'Permissions-Policy': 'geolocation=(), microphone=()'
+        }
+      }
+    }
   },
-  compatibilityDate: '2025-05-15',
-  devtools: { enabled: false },
-  modules: [
-    '@nuxtjs/robots',
-    '@nuxtjs/sitemap'
-  ],
   app: {
+    baseURL: './',
+    buildAssetsDir: '_nuxt/',
     head: {
       title: '工资税后收入计算器 - 一个可以精确到分的税后收入计算器',
       meta: [
@@ -30,23 +40,18 @@ export default defineNuxtConfig({
       ]
     }
   },
-  nitro: {
-    compressPublicAssets: true,
-    prerender: {
-      routes: ['/', '/sitemap.xml'],
-      crawlLinks: true
-    },
-    routeRules: {
-      '/**': { 
-        headers: {
-          'X-Frame-Options': 'DENY',
-          'X-Content-Type-Options': 'nosniff',
-          'Referrer-Policy': 'strict-origin-when-cross-origin',
-          'Permissions-Policy': 'geolocation=(), microphone=()'
-        }
-      }
-    }
+  // @ts-ignore - site config is valid but not in types
+  site: {
+    url: 'https://salary.ikimi.cc',
   },
+  compatibilityDate: '2025-05-15',
+  devtools: { enabled: false },
+  ssr: false,
+  devServer: { host: process.env.TAURI_DEV_HOST || 'localhost' },
+  modules: [
+    '@nuxtjs/robots',
+    '@nuxtjs/sitemap'
+  ],
   // @ts-ignore - sitemap module types
   sitemap: {
     hostname: 'https://salary.ikimi.cc',
@@ -56,9 +61,12 @@ export default defineNuxtConfig({
   robots: {
     UserAgent: '*',
     Allow: '/',
-    Sitemap: 'https://salary.ikimi.cc/sitemap.xml'
+    Sitemap: 'https://salary.ikimi.cc/sitemap.xml',
+    robotsTxt: false
   },
   vite: {
+    clearScreen: false,
+    envPrefix: ['VITE_', 'TAURI_'],
     build: {
       minify: 'terser',
       terserOptions: {
@@ -67,6 +75,10 @@ export default defineNuxtConfig({
           drop_debugger: true
         }
       }
+    },
+    server: {
+      // Tauri需要一个确定的端口
+      strictPort: true,
     }
   },
   experimental: {
