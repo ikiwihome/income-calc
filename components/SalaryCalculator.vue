@@ -27,14 +27,14 @@
         <h3>月度工资<span class="help-icon" title="输入每月扣除五险一金前的税前工资，1月输入后会自动填充到其他月份">?</span></h3>
         <div v-for="(salary, index) in monthlySalaries" :key="index" class="monthly-salary">
           <span>{{ index + 1 }}月:</span>
-          <input type="number" v-model.number="monthlySalaries[index]" min="0" step="1000"
+          <input type="number" v-model.number="monthlySalaries[index]"
             @blur="index === 0 ? handleFirstMonthBlur() : null">
           <span>元</span>
         </div>
       </div>
 
       <div class="form-group">
-        <h3>五险一金个人缴纳比例<span class="help-icon" title="根据当地政策设置各项社保和公积金的个人缴纳比例">?</span></h3>
+        <h3>五险一金个人缴纳比例<span class="help-icon" title="根据当地政策设置各项社保和公积金的个人缴纳比例，缴费基数每年7月份调整">?</span></h3>
         <table class="base-table">
           <thead>
             <tr>
@@ -48,51 +48,50 @@
             <tr>
               <td rowspan="2">社保<br>缴费基数</td>
               <td>下限</td>
-              <td><input type="number" v-model.number="insuranceRates.socialMinBase1" min="0" step="100"></td>
-              <td><input type="number" v-model.number="insuranceRates.socialMinBase2" min="0" step="100"></td>
+              <td><input type="number" v-model.number="insuranceRates.socialMinBase1"></td>
+              <td><input type="number" v-model.number="insuranceRates.socialMinBase2"></td>
             </tr>
             <tr>
               <td>上限</td>
-              <td><input type="number" v-model.number="insuranceRates.socialMaxBase1" min="0" step="100"></td>
-              <td><input type="number" v-model.number="insuranceRates.socialMaxBase2" min="0" step="100"></td>
+              <td><input type="number" v-model.number="insuranceRates.socialMaxBase1"></td>
+              <td><input type="number" v-model.number="insuranceRates.socialMaxBase2"></td>
             </tr>
             <tr>
               <td rowspan="2">公积金<br>缴费基数</td>
               <td>下限</td>
-              <td><input type="number" v-model.number="insuranceRates.housingMinBase1" min="0" step="100"></td>
-              <td><input type="number" v-model.number="insuranceRates.housingMinBase2" min="0" step="100"></td>
+              <td><input type="number" v-model.number="insuranceRates.housingMinBase1"></td>
+              <td><input type="number" v-model.number="insuranceRates.housingMinBase2"></td>
             </tr>
             <tr>
               <td>上限</td>
-              <td><input type="number" v-model.number="insuranceRates.housingMaxBase1" min="0" step="100"></td>
-              <td><input type="number" v-model.number="insuranceRates.housingMaxBase2" min="0" step="100"></td>
+              <td><input type="number" v-model.number="insuranceRates.housingMaxBase1"></td>
+              <td><input type="number" v-model.number="insuranceRates.housingMaxBase2"></td>
             </tr>
           </tbody>
         </table>
         <div class="deduction-item">
           <span>养老保险:</span>
-          <input type="number" v-model.number="insuranceRates.pensionPercentage" min="0" max="100" step="1">
+          <input type="number" v-model.number="insuranceRates.pensionPercentage">
           <span>%</span>
         </div>
         <div class="deduction-item">
           <span>医疗保险:</span>
-          <input type="number" v-model.number="insuranceRates.medicalPercentage" min="0" max="100" step="1">
+          <input type="number" v-model.number="insuranceRates.medicalPercentage">
           <span>%</span>
         </div>
         <div class="deduction-item">
           <span>失业保险:</span>
-          <input type="number" v-model.number="insuranceRates.unemploymentPercentage" min="0" max="100" step="0.1">
+          <input type="number" v-model.number="insuranceRates.unemploymentPercentage">
           <span>%</span>
         </div>
         <div class="deduction-item">
           <span>住房公积金:</span>
-          <input type="number" v-model.number="insuranceRates.HousingFundPercentage" min="0" max="100" step="1">
+          <input type="number" v-model.number="insuranceRates.HousingFundPercentage">
           <span>%</span>
         </div>
         <div class="deduction-item">
           <span>补充公积金:</span>
-          <input type="number" v-model.number="insuranceRates.supplementHousingFundPercentage" min="0" max="100"
-            step="1">
+          <input type="number" v-model.number="insuranceRates.supplementHousingFundPercentage">
           <span>%</span>
         </div>
       </div>
@@ -109,7 +108,7 @@
         </div>
         <div class="additional-deduction-item">
           <span title="子女全日制学历教育支出，每月2000元定额扣除">子女教育:</span>
-          <input type="number" v-model.number="specialDeductions.childrenEducation" min="0" max="2000" step="100">
+          <input type="number" v-model.number="specialDeductions.childrenEducation">
           <span>元/月</span>
           <div class="date-range" v-if="specialDeductions.childrenEducation > 0">
             <span>适用月份:</span>
@@ -127,7 +126,7 @@
         </div>
         <div class="additional-deduction-item">
           <span title="首套住房贷款利息支出，每月1000元定额扣除">住房贷款利息:</span>
-          <input type="number" v-model.number="specialDeductions.housingLoan" min="0" max="1000" step="100">
+          <input type="number" v-model.number="specialDeductions.housingLoan">
           <span>元/月</span>
           <div class="date-range" v-if="specialDeductions.housingLoan > 0">
             <span>适用月份:</span>
@@ -145,7 +144,7 @@
         </div>
         <div class="additional-deduction-item">
           <span title="工作城市无自有住房租金支出，直辖市/省会1500元/月，其他城市1100或800元/月">住房租金:</span>
-          <input type="number" v-model.number="specialDeductions.housingRent" min="0" max="1500" step="100">
+          <input type="number" v-model.number="specialDeductions.housingRent">
           <span>元/月</span>
           <div v-if="specialDeductions.housingRent > 0">
             <div class="date-range">
@@ -165,7 +164,7 @@
         </div>
         <div class="additional-deduction-item">
           <span title="赡养60岁以上老人，每月3000元定额扣除">赡养老人:</span>
-          <input type="number" v-model.number="specialDeductions.elderlySupport" min="0" max="3000" step="100">
+          <input type="number" v-model.number="specialDeductions.elderlySupport">
           <span>元/月</span>
           <div class="date-range" v-if="specialDeductions.elderlySupport > 0">
             <span>适用月份:</span>
@@ -183,7 +182,7 @@
         </div>
         <div class="additional-deduction-item">
           <span title="3岁以下婴幼儿照护支出，每月2000元定额扣除">3岁以下婴幼儿照护:</span>
-          <input type="number" v-model.number="specialDeductions.infantCare" min="0" max="2000" step="100">
+          <input type="number" v-model.number="specialDeductions.infantCare">
           <span>元/月</span>
           <div class="date-range" v-if="specialDeductions.infantCare > 0">
             <span>适用月份:</span>
@@ -201,7 +200,7 @@
         </div>
         <div class="additional-deduction-item">
           <span title="学历继续教育每月400元，不超过48个月，职业资格教育每年3600元定额扣除">继续教育:</span>
-          <input type="number" v-model.number="specialDeductions.continuingEducation" min="0" max="400" step="100">
+          <input type="number" v-model.number="specialDeductions.continuingEducation">
           <span>元/月</span>
           <div class="date-range" v-if="specialDeductions.continuingEducation > 0">
             <span>适用月份:</span>
@@ -219,7 +218,7 @@
         </div>
         <div class="additional-deduction-item">
           <span title="医保报销后个人负担超15000元部分，80000元限额内据实扣除">大病医疗:</span>
-          <input type="number" v-model.number="specialDeductions.seriousIllness" min="0" max="80000" step="1000">
+          <input type="number" v-model.number="specialDeductions.seriousIllness">
           <span>元/年</span>
         </div>
       </div>
