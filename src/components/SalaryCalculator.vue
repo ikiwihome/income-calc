@@ -208,7 +208,7 @@
                 <Label>子女教育:<span class="help-icon">?</span></Label>
               </TooltipTrigger>
               <TooltipContent>
-                <p>满3岁子女全日制学前学历教育支出<br>2000元/月/每个子女 定额扣除，可双方各扣除50%</p>
+                <p>满3岁子女全日制学历教育支出<br>2000元/月/每个子女 定额扣除，可双方各扣除50%</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
