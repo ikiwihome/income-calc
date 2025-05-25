@@ -171,6 +171,7 @@
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
+        <Label class="my-4">请选择申报方式：</Label>
         <RadioGroup v-model="declarationMethod" class="tax-method">
           <div class="flex items-center space-x-2">
             <RadioGroupItem value="employer" id="employer" />
@@ -186,6 +187,9 @@
               </Tooltip>
             </TooltipProvider>
           </div>
+          <div class="text-gray-500 text-sm mt-1 ml-7">
+            专项附加扣除由所在单位在每月扣除
+          </div>
           <div class="flex items-center space-x-2">
             <RadioGroupItem value="self" id="self" />
             <Label for="self">综合所得年度自行申报</Label>
@@ -199,6 +203,9 @@
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
+          </div>
+          <div class="text-gray-500 text-sm mt-1 ml-7">
+            计算结果中每月专项附加扣除为0<br>年度汇算清缴时在个人所得税App自行申报扣除
           </div>
         </RadioGroup>
         <div class="additional-deduction-item">
@@ -558,7 +565,7 @@
             <TableHead colspan="4">五险一金</TableHead>
             <TableHead rowspan="2">专项扣除</TableHead>
             <TableHead rowspan="2">累计专项扣除</TableHead>
-            <TableHead rowspan="2">累计专项附加扣除</TableHead>
+            <TableHead rowspan="2">累计专项<br>附加扣除</TableHead>
             <TableHead rowspan="2">预扣税率</TableHead>
             <TableHead rowspan="2">应纳税额</TableHead>
             <TableHead rowspan="2">税后工资</TableHead>
@@ -1116,13 +1123,13 @@ table {
   }
 
   table th {
-    background: #2c3e50;
+    background: #cbcbcb19;
     color: white;
   }
 }
 
 th {
-  background: #2c3e50;
+  background: #cbcbcb19;
   padding: 0.75rem;
   text-align: center;
 }
@@ -1134,7 +1141,6 @@ td {
 
 .tax-method {
   display: block;
-  margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
