@@ -4,14 +4,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
+      "~/*": ["./src/*"],
+      "@/*": ["./src/*"]
     },
-    "types": ["vite/client", "node"]
-  },
-  "include": [
-    "**/*.ts",
-    "**/*.vue",
-    "**/*.json"
-  ]
+    "types": []
+  }
 }

@@ -1,16 +1,39 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { defineNuxtConfig } from 'nuxt/config'
+import tailwindcss from "@tailwindcss/vite";
+import pkg from './package.json';
 
 export default defineNuxtConfig({
+  compatibilityDate: '2025-05-22',
+  devtools: { enabled: false },
+  css: ['./src/assets/css/tailwind.css'],
+
+  // SSR must be turned off
+  ssr: false,
+  srcDir: "src/",
+
+  modules: ['shadcn-nuxt', '@nuxtjs/color-mode'],
+  colorMode: {
+    classSuffix: ''
+  },
+  shadcn: {
+    /**
+     * Prefix for all the imported component
+     */
+    prefix: '',
+    /**
+     * Directory that the component lives in.
+     * @default "./src/components/ui"
+     */
+    componentDir: './src/components/ui'
+  },
   nitro: {
     preset: 'static',
-    compressPublicAssets: true,
+    compressPublicAssets: false,
     prerender: {
-      routes: ['/', '/sitemap.xml'],
-      crawlLinks: true
+      routes: ['/']
     },
     routeRules: {
-      '/**': { 
+      '/**': {
         headers: {
           'X-Frame-Options': 'DENY',
           'X-Content-Type-Options': 'nosniff',
@@ -20,69 +43,44 @@ export default defineNuxtConfig({
       }
     }
   },
-  app: {
-    baseURL: './',
-    buildAssetsDir: '_nuxt/',
-    head: {
-      title: '工资税后收入计算器 - 一个可以精确到分的税后收入计算器',
-      meta: [
-        { name: 'description', content: '免费在线工资税后收入计算器，精确计算五险一金和个税，实时计算税后到手工资' },
-        { name: 'keywords', content: '2025年,最新,精确,工资计算器,税后工资,个税计算,五险一金,社保计算,公积金计算' },
-        { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: '工资税后收入计算器 - 一个可以精确到分的税后收入计算器' },
-        { property: 'og:description', content: '免费在线工资税后收入计算器，精确计算五险一金和个税，实时计算税后到手工资' },
-        { property: 'og:url', content: 'https://salary.ikimi.cc' },
-        { property: 'og:image', content: 'https://salary.ikimi.cc/og-image.jpg' },
-        { name: 'twitter:card', content: 'summary_large_image' }
-      ],
-      link: [
-        { rel: 'canonical', href: 'https://salary.ikimi.cc' }
-      ]
-    }
-  },
-  // @ts-ignore - site config is valid but not in types
-  site: {
-    url: 'https://salary.ikimi.cc',
-  },
-  compatibilityDate: '2025-05-15',
-  devtools: { enabled: false },
-  ssr: false,
-  devServer: { host: process.env.TAURI_DEV_HOST || 'localhost' },
-  modules: [
-    '@nuxtjs/robots',
-    '@nuxtjs/sitemap'
-  ],
-  // @ts-ignore - sitemap module types
-  sitemap: {
-    hostname: 'https://salary.ikimi.cc',
-    gzip: true,
-    exclude: ['/admin/**']
-  },
-  robots: {
-    UserAgent: '*',
-    Allow: '/',
-    Sitemap: 'https://salary.ikimi.cc/sitemap.xml',
-    robotsTxt: false
-  },
   vite: {
-    clearScreen: false,
-    envPrefix: ['VITE_', 'TAURI_'],
+    css: {
+      devSourcemap: true
+    },
+    optimizeDeps: {
+      exclude: ['@nuxt/nitro']
+    },
     build: {
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true
+      // css/js compress
+      minify: true,
+      sourcemap: false,
+      rollupOptions: {
+        output: {
+          sourcemap: false
         }
       }
     },
-    server: {
-      // Tauri需要一个确定的端口
-      strictPort: true,
-    }
+    plugins: [
+      tailwindcss(),
+    ],
   },
-  experimental: {
-    payloadExtraction: true
-  },
-  sourcemap: false
-})
+  app: {
+    head: {
+      title: pkg.name,
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1.0, shrink-to-fit=no',
+      htmlAttrs: {
+        lang: 'zh-CN',
+      },
+      meta: [
+        { name: 'keywords', content: pkg.keywords.join(', ') },
+        { name: 'description', content: pkg.description }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ]
+    },
+    baseURL: './',
+    buildAssetsDir: '_nuxt/'
+  }
+});

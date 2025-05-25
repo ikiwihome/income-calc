@@ -280,7 +280,7 @@ function calculateSpecialDeduction(deductions: SpecialDeduction[], month: number
   return total
 }
 
-import insuranceData from '../data/insuranceData.json'
+import insuranceData from '@/stores/insuranceData.json'
 
 interface BaseConfig {
   year: number

@@ -1,9 +1,9 @@
 [package]
-name = "app"
-version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
+name = "个税计算器"
+version = "1.0.0"
+description = "工资个税计算器 - 一个可以精确到分的税后收入计算器"
+authors = ["ikiwi"]
+license = "MIT"
 repository = ""
 edition = "2021"
 rust-version = "1.77.2"
