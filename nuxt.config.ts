@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   ssr: false,
   srcDir: "src/",
 
-  modules: ['shadcn-nuxt', '@nuxtjs/color-mode', '@pinia/nuxt'],
+  modules: ['shadcn-nuxt', '@nuxtjs/color-mode'],
   colorMode: {
     classSuffix: ''
   },
