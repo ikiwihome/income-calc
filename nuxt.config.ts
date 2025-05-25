@@ -66,7 +66,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: pkg.name,
+      title: "个税计算器",
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1.0, shrink-to-fit=no',
       htmlAttrs: {

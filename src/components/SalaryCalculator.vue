@@ -1,7 +1,7 @@
 <template>
   <div class="calculator-container">
     <div class="theme-toggle">
-      <Button variant="ghost" size="icon" @click="toggleDarkMode">
+      <Button variant="ghost" size="icon" @click="toggleDarkMode" class="no-hover">
         <Sun v-if="!isDarkMode" class="h-5 w-5" />
         <Moon v-else class="h-5 w-5" />
       </Button>
@@ -1117,5 +1117,9 @@ td {
 
 .help-icon:hover {
   background-color: #3182ce;
+}
+
+.no-hover:hover {
+  background: transparent;
 }
 </style>

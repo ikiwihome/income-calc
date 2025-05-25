@@ -36,8 +36,4 @@ Button {
   cursor: pointer;
   transition: all 0.2s;
 }
-
-Button:hover {
-  background: #cbcbcb;
-}
 </style>
