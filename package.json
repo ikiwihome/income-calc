@@ -31,12 +31,14 @@
     "tauri:build": "pnpm tauri build"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.11.0",
     "@tanstack/vue-table": "^8.21.3",
     "@vueuse/core": "^13.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-vue-next": "^0.511.0",
     "nuxt": "^3.17.4",
+    "pinia": "^3.0.2",
     "reka-ui": "^2.2.1",
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.7",
@@ -47,13 +49,13 @@
     "@iconify-json/radix-icons": "^1.2.2",
     "@iconify/vue": "^5.0.0",
     "@nuxtjs/color-mode": "^3.5.2",
-    "@tauri-apps/cli": "2.5.0",
     "@tailwindcss/vite": "^4.1.7",
     "@tanstack/vue-table": "^8.21.3",
+    "@tauri-apps/cli": "2.5.0",
     "class-variance-authority": "^0.7.1",
     "shadcn-nuxt": "2.1.0",
-    "vue-router": "^4.5.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vue-router": "^4.5.1"
   },
   "packageManager": "pnpm@10.11.0"
 }
