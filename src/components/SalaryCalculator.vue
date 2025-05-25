@@ -208,11 +208,23 @@
                 <Label>子女教育:<span class="help-icon">?</span></Label>
               </TooltipTrigger>
               <TooltipContent>
-                <p>子女全日制学历教育支出<br>每月2000元定额扣除</p>
+                <p>满3岁子女全日制学前学历教育支出<br>2000元/月/每个子女 定额扣除，可双方各扣除50%</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <Input type="number" v-model.number="specialDeductions.childrenEducation" />
+          <Select v-model.number="specialDeductions.childrenEducation">
+            <SelectTrigger>
+              <SelectValue class="specialdeductionsselect" placeholder="选择金额" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem :value="0">0</SelectItem>
+                <SelectItem :value="1000">1000</SelectItem>
+                <SelectItem :value="2000">2000</SelectItem>
+                <SelectItem :value="4000">4000</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
           <span>元/月</span>
           <div class="date-range" v-if="specialDeductions.childrenEducation > 0">
             <span>适用月份:</span>
@@ -252,11 +264,22 @@
                 <Label>住房贷款利息:<span class="help-icon">?</span></Label>
               </TooltipTrigger>
               <TooltipContent>
-                <p>首套住房贷款利息支出<br>每月1000元定额扣除</p>
+                <p>首套住房贷款利息支出<br>1000元/月定额扣除，可双方各扣除50%</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <Input type="number" v-model.number="specialDeductions.housingLoan" />
+          <Select v-model.number="specialDeductions.housingLoan">
+            <SelectTrigger>
+              <SelectValue class="specialdeductionsselect" placeholder="选择金额" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem :value="0">0</SelectItem>
+                <SelectItem :value="500">500</SelectItem>
+                <SelectItem :value="1000">1000</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
           <span>元/月</span>
           <div class="date-range" v-if="specialDeductions.housingLoan > 0">
             <span>适用月份:</span>
@@ -296,11 +319,23 @@
                 <Label>住房租金:<span class="help-icon">?</span></Label>
               </TooltipTrigger>
               <TooltipContent>
-                <p>工作城市无自有住房租金支出<br>直辖市/省会1500元/月<br>其他城市1100或800元/月</p>
+                <p>1.直辖市、省会等特定城市：1500元/月<br>2.市辖区户籍人口＞100万：1100元/月<br>3.市辖区户籍人口≤100万：800元/月</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <Input type="number" v-model.number="specialDeductions.housingRent" />
+          <Select v-model.number="specialDeductions.housingRent">
+            <SelectTrigger>
+              <SelectValue class="specialdeductionsselect" placeholder="选择金额" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem :value="0">0</SelectItem>
+                <SelectItem :value="800">800</SelectItem>
+                <SelectItem :value="1100">1100</SelectItem>
+                <SelectItem :value="1500">1500</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
           <span>元/月</span>
           <div v-if="specialDeductions.housingRent > 0">
             <div class="date-range">
@@ -342,11 +377,23 @@
                 <Label>赡养老人:<span class="help-icon">?</span></Label>
               </TooltipTrigger>
               <TooltipContent>
-                <p>赡养60岁以上老人<br>每月3000元定额扣除</p>
+                <p>赡养60岁以上老人<br>独生子女3000元/月定额扣除<br>非独生子女不超过1500元/月定额扣除</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <Input type="number" v-model.number="specialDeductions.elderlySupport" />
+          <Select v-model.number="specialDeductions.elderlySupport">
+            <SelectTrigger>
+              <SelectValue class="specialdeductionsselect" placeholder="选择金额" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem :value="0">0</SelectItem>
+                <SelectItem :value="1000">1000</SelectItem>
+                <SelectItem :value="1500">1500</SelectItem>
+                <SelectItem :value="3000">3000</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
           <span>元/月</span>
           <div class="date-range" v-if="specialDeductions.elderlySupport > 0">
             <span>适用月份:</span>
@@ -386,11 +433,23 @@
                 <Label>3岁以下婴幼儿照护:<span class="help-icon">?</span></Label>
               </TooltipTrigger>
               <TooltipContent>
-                <p>3岁以下婴幼儿照护支出<br>每月2000元定额扣除</p>
+                <p>3岁以下婴幼儿照护支出<br>2000元/月/每个婴幼儿定额扣除，可双方各扣除50%</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <Input type="number" v-model.number="specialDeductions.infantCare" />
+          <Select v-model.number="specialDeductions.infantCare">
+            <SelectTrigger>
+              <SelectValue class="specialdeductionsselect" placeholder="选择金额" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem :value="0">0</SelectItem>
+                <SelectItem :value="1000">1000</SelectItem>
+                <SelectItem :value="2000">2000</SelectItem>
+                <SelectItem :value="4000">4000</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
           <span>元/月</span>
           <div class="date-range" v-if="specialDeductions.infantCare > 0">
             <span>适用月份:</span>
@@ -868,7 +927,7 @@ h1 {
 
 .form-group {
   margin-bottom: 1rem;
-  background: #cbcbcb05;
+  background: #cbcbcb19;
   padding: 1rem;
   border-radius: 8px;
 }
@@ -928,7 +987,7 @@ input[type="number"]:focus {
 }
 
 .additional-deduction-item input[type="number"] {
-  width: 80px;
+  width: 100px;
   margin-right: 0;
 }
 
@@ -970,6 +1029,11 @@ input[type="number"]:focus {
   .deduction-item span {
     text-align: center;
   }
+}
+
+.specialdeductionsselect {
+  width: 50px !important;
+  justify-content: center;
 }
 
 .date-range {
