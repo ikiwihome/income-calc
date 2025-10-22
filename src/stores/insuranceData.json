@@ -196,7 +196,7 @@
       "periods": [
         {
           "startMonth": 1,
-          "endMonth": 12,
+          "endMonth": 6,
           "baseMin": 7384,
           "baseMax": 36921,
           "housingFundRates": [
@@ -234,6 +234,140 @@
               "rate": 1,
               "minBase": 54,
               "maxBase": 738
+            }
+          ]
+        },
+        {
+          "startMonth": 7,
+          "endMonth": 12,
+          "baseMin": 7460,
+          "baseMax": 37302,
+          "housingFundRates": [
+            {
+              "rate": 7,
+              "minBase": 376,
+              "maxBase": 5222
+            },
+            {
+              "rate": 6,
+              "minBase": 322,
+              "maxBase": 4476
+            },
+            {
+              "rate": 5,
+              "minBase": 270,
+              "maxBase": 3730
+            },
+            {
+              "rate": 4,
+              "minBase": 216,
+              "maxBase": 2984
+            },
+            {
+              "rate": 3,
+              "minBase": 162,
+              "maxBase": 2238
+            },
+            {
+              "rate": 2,
+              "minBase": 108,
+              "maxBase": 1492
+            },
+            {
+              "rate": 1,
+              "minBase": 54,
+              "maxBase": 746
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "periods": [
+        {
+          "startMonth": 1,
+          "endMonth": 6,
+          "baseMin": 7460,
+          "baseMax": 37302,
+          "housingFundRates": [
+            {
+              "rate": 7,
+              "minBase": 376,
+              "maxBase": 5222
+            },
+            {
+              "rate": 6,
+              "minBase": 322,
+              "maxBase": 4476
+            },
+            {
+              "rate": 5,
+              "minBase": 270,
+              "maxBase": 3730
+            },
+            {
+              "rate": 4,
+              "minBase": 216,
+              "maxBase": 2984
+            },
+            {
+              "rate": 3,
+              "minBase": 162,
+              "maxBase": 2238
+            },
+            {
+              "rate": 2,
+              "minBase": 108,
+              "maxBase": 1492
+            },
+            {
+              "rate": 1,
+              "minBase": 54,
+              "maxBase": 746
+            }
+          ]
+        },
+        {
+          "startMonth": 7,
+          "endMonth": 12,
+          "baseMin": 7460,
+          "baseMax": 37302,
+          "housingFundRates": [
+            {
+              "rate": 7,
+              "minBase": 376,
+              "maxBase": 5222
+            },
+            {
+              "rate": 6,
+              "minBase": 322,
+              "maxBase": 4476
+            },
+            {
+              "rate": 5,
+              "minBase": 270,
+              "maxBase": 3730
+            },
+            {
+              "rate": 4,
+              "minBase": 216,
+              "maxBase": 2984
+            },
+            {
+              "rate": 3,
+              "minBase": 162,
+              "maxBase": 2238
+            },
+            {
+              "rate": 2,
+              "minBase": 108,
+              "maxBase": 1492
+            },
+            {
+              "rate": 1,
+              "minBase": 54,
+              "maxBase": 746
             }
           ]
         }
