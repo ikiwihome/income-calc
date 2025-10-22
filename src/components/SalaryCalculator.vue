@@ -669,7 +669,7 @@ interface Cities {
 
 const cities: Cities = insuranceData.cities as unknown as Cities
 const year = ref(2024)
-const years = Array.from({ length: 3 }, (_, i) => 2023 + i)
+const years = Array.from({ length: 4 }, (_, i) => 2023 + i)
 const city = ref('上海')
 
 const monthlySalaries = ref(Array(12).fill(0))
