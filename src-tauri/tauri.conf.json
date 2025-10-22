@@ -27,8 +27,8 @@
     "active": true,
     "targets": "msi",
     "icon": [
-      "../src/public/favicon.png",
-      "../src/public/favicon.ico"
+      "../public/favicon.png",
+      "../public/favicon.ico"
     ]
   }
 }
