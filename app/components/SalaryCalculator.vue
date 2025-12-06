@@ -721,16 +721,19 @@ const monthRangeErrors = ref({
 })
 
 const insuranceRates = ref({
-  ...cities[city.value].insuranceRates,
-  supplementHousingFundPercentage: 0, // 默认0%
-  socialMinBase1: cities[city.value].socialMinBase,
-  socialMinBase2: cities[city.value].socialMinBase,
-  socialMaxBase1: cities[city.value].socialMaxBase,
-  socialMaxBase2: cities[city.value].socialMaxBase,
-  housingMinBase1: cities[city.value].housingMinBase,
-  housingMinBase2: cities[city.value].housingMinBase,
-  housingMaxBase1: cities[city.value].housingMaxBase,
-  housingMaxBase2: cities[city.value].housingMaxBase
+  pensionPercentage: cities[city.value]?.insuranceRates?.pensionPercentage ?? 0,
+  medicalPercentage: cities[city.value]?.insuranceRates?.medicalPercentage ?? 0,
+  unemploymentPercentage: cities[city.value]?.insuranceRates?.unemploymentPercentage ?? 0,
+  HousingFundPercentage: cities[city.value]?.insuranceRates?.HousingFundPercentage ?? 0,
+  supplementHousingFundPercentage: cities[city.value]?.insuranceRates?.supplementHousingFundPercentage ?? 0,
+  socialMinBase1: cities[city.value]?.socialMinBase ?? 0,
+  socialMinBase2: cities[city.value]?.socialMinBase ?? 0,
+  socialMaxBase1: cities[city.value]?.socialMaxBase ?? 0,
+  socialMaxBase2: cities[city.value]?.socialMaxBase ?? 0,
+  housingMinBase1: cities[city.value]?.housingMinBase ?? 0,
+  housingMinBase2: cities[city.value]?.housingMinBase ?? 0,
+  housingMaxBase1: cities[city.value]?.housingMaxBase ?? 0,
+  housingMaxBase2: cities[city.value]?.housingMaxBase ?? 0
 })
 
 // 根据年份和城市更新社保公积金基数
