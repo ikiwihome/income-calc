@@ -1,45 +1,46 @@
-# 第一阶段：构建阶段
+# 构建阶段 (builder stage)
+# 使用 Node.js 20 的 Alpine 版本作为基础镜像，用于构建 Nuxt.js 应用
 FROM node:20-alpine AS builder
 
-# 安装pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
-
+# 设置工作目录
 WORKDIR /app
 
-# 复制包管理文件
-COPY package.json pnpm-lock.yaml ./
-
-# 安装依赖（包括devDependencies）
-RUN pnpm install --frozen-lockfile
-
-# 复制源代码
+# 复制所有项目文件到工作目录
+# 确保所有源代码和配置文件都在，包括 package.json 和 pnpm-lock.yaml
 COPY . .
 
-# 构建生产版本
-RUN pnpm run build
+# 全局安装 pnpm
+# 确保在安装项目依赖之前 pnpm 是可用的
+RUN npm install -g pnpm
 
-# 第二阶段：运行阶段
-FROM node:20-alpine AS runner
+# 安装项目依赖
+# --frozen-lockfile 确保根据 lockfile 精确安装依赖，提高构建一致性
+RUN pnpm install --frozen-lockfile
 
+# 构建 Nuxt.js 应用
+# Nuxt.js 会构建一个包含前后端逻辑的服务器应用，输出到 .output 目录
+RUN pnpm build
+
+# 生产阶段 (production stage)
+# 使用 Node.js 20 的 Alpine 版本作为基础镜像，用于运行 Nuxt.js 服务器
+FROM node:20-alpine AS production
+
+# 设置工作目录
 WORKDIR /app
 
-# 从构建阶段复制构建输出和运行时依赖
-COPY --from=builder /app/.output /app/.output
-COPY --from=builder /app/node_modules /app/node_modules
+# 复制构建阶段生成的完整 .output 目录
+# 这个目录包含了 Nuxt.js 服务器端代码和所有静态资源
+COPY --from=builder /app/.output ./
 
-# 设置环境变量
-ENV NUXT_HOST=0.0.0.0
-ENV NUXT_PORT=3000
-
-# 暴露端口
+# 暴露 Nuxt.js 服务器监听的端口，默认是 3000
 EXPOSE 3000
 
-# 设置非root用户
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nuxtuser && \
-    chown -R nuxtuser:nodejs /app
+# 设置 NODE_ENV 为 production，以确保生产环境优化
+ENV NODE_ENV=production
+ENV DEFAULT_API_KEY=sk-your_api_key_here
+ENV DEFAULT_BASE_URL=https://api.openai.com/v1
 
-USER nuxtuser
 
-# 启动应用
-CMD ["node", "/app/.output/server/index.mjs"]
+# 定义容器启动时执行的命令
+# 运行 Nuxt.js 服务器的入口文件，默认是 .output/server/index.mjs
+CMD ["node", "server/index.mjs"] 

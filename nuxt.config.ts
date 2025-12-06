@@ -3,18 +3,11 @@ import tailwindcss from "@tailwindcss/vite";
 import pkg from './package.json';
 
 export default defineNuxtConfig({
-  compatibilityDate: '2025-10-22',
   devtools: { enabled: false },
+  compatibilityDate: '2025-09-06',
   css: ['./app/assets/css/tailwind.css'],
-
-  // SSR must be turned off
-  ssr: false,
-  srcDir: "app/",
-
+  ssr: true,
   modules: ['shadcn-nuxt', '@nuxtjs/color-mode'],
-  colorMode: {
-    classSuffix: ''
-  },
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -26,11 +19,16 @@ export default defineNuxtConfig({
      */
     componentDir: './app/components/ui'
   },
+  colorMode: {
+    classSuffix: ''
+  },
   nitro: {
     preset: 'static',
     compressPublicAssets: false,
     prerender: {
-      routes: ['/']
+      routes: ['/'],
+      ignore: ['/200', '/404'],
+      crawlLinks: false
     },
     routeRules: {
       '/**': {
@@ -66,7 +64,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: "个税计算器",
+      title: pkg.title,
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1.0, shrink-to-fit=no',
       htmlAttrs: {
@@ -79,8 +77,6 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       ]
-    },
-    baseURL: './',
-    buildAssetsDir: '_nuxt/'
+    }
   }
 });
