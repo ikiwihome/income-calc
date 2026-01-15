@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cargo tauri build)",
+      "Bash(\"C:\\\\Users\\\\chao\\\\AppData\\\\Local\\\\tauri\\\\WixTools314\\\\light.exe\" -nologo -out \"D:\\\\80_proj\\\\income-calc\\\\src-tauri\\\\target\\\\release\\\\bundle\\\\msi\\\\income-calc_1.0.0_x64_en-US.msi\" -ext WixUIExtension -ext WixUtilExtension main.wixobj)",
+      "Bash(\"C:\\\\Users\\\\chao\\\\AppData\\\\Local\\\\tauri\\\\WixTools314\\\\candle.exe\" -nologo main.wxs)",
+      "Bash(dir /s)",
+      "Bash(findstr \"wix\\\\|wxs\")",
+      "Bash(pnpm tauri --version)",
+      "Bash(cargo update)",
+      "Bash(pnpm update @tauri-apps/cli @tauri-apps/api)",
+      "Bash(pnpm add -D @tauri-apps/cli@latest)",
+      "Bash(cargo check)",
+      "Bash(pnpm tauri build --target x64)",
+      "Bash(pnpm tauri build --target x86_64-pc-windows-msvc)"
+    ]
+  }
+}

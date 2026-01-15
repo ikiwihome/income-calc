@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "income-calc",
+  "productName": "IncomeCalc",
   "version": "1.0.0",
-    "identifier": "cc.ikimi.income-calc",
+  "identifier": "cc.ikimi.income-calc",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:3000",
@@ -24,8 +24,7 @@
     }
   },
   "bundle": {
-    "active": true,
-    "targets": "msi",
+    "active": false,
     "icon": [
       "../public/favicon.png",
       "../public/favicon.ico"
