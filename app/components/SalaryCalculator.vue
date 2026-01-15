@@ -579,7 +579,7 @@
         </TableHeader>
         <TableBody>
           <TableRow v-for="(result, index) in results.monthlyResults" :key="index">
-            <TableCell>{{ index + 1 }}月</TableCell>
+            <TableCell>{{ Number(index) + 1 }}月</TableCell>
             <TableCell>{{ result.grossSalary.toFixed(0) }}</TableCell>
             <TableCell>{{ result.baseAmount.toFixed(0) }}</TableCell>
             <TableCell>{{ (result.insurance?.HousingFundPercentage +
@@ -668,7 +668,7 @@ interface Cities {
 }
 
 const cities: Cities = insuranceData.cities as unknown as Cities
-const year = ref(2024)
+const year = ref(2026)
 const years = Array.from({ length: 4 }, (_, i) => 2023 + i)
 const city = ref('上海')
 
