@@ -5,7 +5,7 @@ import pkg from './package.json';
 export default defineNuxtConfig({
   devtools: { enabled: false },
   compatibilityDate: '2025-09-06',
-  css: ['./app/assets/css/tailwind.css'],
+  css: ['~/assets/css/tailwind.css'],
   ssr: true,
   modules: ['shadcn-nuxt', '@nuxtjs/color-mode'],
   shadcn: {
