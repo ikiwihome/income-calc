@@ -331,43 +331,43 @@
         {
           "startMonth": 7,
           "endMonth": 12,
-          "baseMin": 7460,
-          "baseMax": 37302,
+          "baseMin": 7546,
+          "baseMax": 37731,
           "housingFundRates": [
             {
               "rate": 7,
               "minBase": 376,
-              "maxBase": 5222
+              "maxBase": 5282
             },
             {
               "rate": 6,
               "minBase": 322,
-              "maxBase": 4476
+              "maxBase": 4528
             },
             {
               "rate": 5,
               "minBase": 270,
-              "maxBase": 3730
+              "maxBase": 3773
             },
             {
               "rate": 4,
               "minBase": 216,
-              "maxBase": 2984
+              "maxBase": 3018
             },
             {
               "rate": 3,
               "minBase": 162,
-              "maxBase": 2238
+              "maxBase": 2264
             },
             {
               "rate": 2,
               "minBase": 108,
-              "maxBase": 1492
+              "maxBase": 1509
             },
             {
               "rate": 1,
               "minBase": 54,
-              "maxBase": 746
+              "maxBase": 755
             }
           ]
         }

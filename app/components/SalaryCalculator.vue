@@ -6,7 +6,7 @@
         <Moon v-else class="h-5 w-5" />
       </Button>
     </div>
-    <h1>2025年最新工资税后收入计算器</h1>
+    <h1>{{ year }}年最新工资税后收入计算器</h1>
     <h2 class="subtitle">一个可以精确到分的税后收入计算器</h2>
 
     <div class="top-row">
@@ -669,7 +669,13 @@ interface Cities {
 
 const cities: Cities = insuranceData.cities as unknown as Cities
 const year = ref(2026)
-const years = Array.from({ length: 4 }, (_, i) => 2023 + i)
+const years = Array.from(
+  new Set(
+    Object.values(cities).flatMap((cityConfig) =>
+      cityConfig.baseConfig?.map((config) => config.year) ?? []
+    )
+  )
+).sort((firstYear, secondYear) => firstYear - secondYear)
 const city = ref('上海')
 
 const monthlySalaries = ref(Array(12).fill(0))
