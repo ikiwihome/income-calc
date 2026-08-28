@@ -169,7 +169,6 @@ income-calc/
 
 如果这个项目对你有帮助，点一个 Star 就够了。它不会让税变少，但会让维护者更有动力继续追政策。
 
-[![Star History Chart](https://api.star-history.com/svg?repos=ikiwihome/income-calc&type=Date)](https://star-history.com/#ikiwihome/income-calc&Date)
 
 ## License
 
