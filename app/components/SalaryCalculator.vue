@@ -89,14 +89,14 @@ watch(currentStep, async () => {
 
           <div v-if="salaryMode === 'same'" class="field-block salary-field">
             <label for="base-salary">每月税前工资</label>
-            <div class="money-input"><span>¥</span><input id="base-salary" v-model.number="state.baseSalary" type="number" min="0" step="100" /><em>元 / 月</em></div>
+            <div class="money-input"><span>¥</span><input id="base-salary" v-model.number="state.baseSalary" type="number" min="0" step="100"><em>元 / 月</em></div>
             <small>将用于填充全年 12 个月，你仍可切换到“每月不同”单独修改。</small>
           </div>
 
           <div v-else class="month-grid">
             <label v-for="(_, index) in state.salaries" :key="index">
               <span>{{ index + 1 }} 月</span>
-              <div><i>¥</i><input v-model.number="state.salaries[index]" type="number" min="0" /></div>
+              <div><i>¥</i><input v-model.number="state.salaries[index]" type="number" min="0"></div>
             </label>
           </div>
         </div>
@@ -115,9 +115,9 @@ watch(currentStep, async () => {
           <div class="period-cards">
             <article v-for="(period, index) in policy.periods" :key="index" class="period-card">
               <div class="period-title"><span>{{ index === 0 ? '1–6 月' : '7–12 月' }}</span><small>{{ index === 0 ? '上半年度' : '下半年度' }}</small></div>
-              <label>社保申报工资<div class="inline-input"><span>¥</span><input v-model.number="state.socialBases[index]" type="number" min="0" /></div></label>
+              <label>社保申报工资<div class="inline-input"><span>¥</span><input v-model.number="state.socialBases[index]" type="number" min="0"></div></label>
               <p>政策范围 ¥{{ money(period.socialMin, 0) }} – ¥{{ money(period.socialMax, 0) }}</p>
-              <label>公积金申报工资<div class="inline-input"><span>¥</span><input v-model.number="state.housingBases[index]" type="number" min="0" /></div></label>
+              <label>公积金申报工资<div class="inline-input"><span>¥</span><input v-model.number="state.housingBases[index]" type="number" min="0"></div></label>
               <p>政策范围 ¥{{ money(period.housingMin, 0) }} – ¥{{ money(period.housingMax, 0) }}</p>
             </article>
           </div>
@@ -126,11 +126,11 @@ watch(currentStep, async () => {
             <span>个人缴费比例</span><ChevronDown :size="18" :class="{ rotate: showAdvancedRates }" />
           </button>
           <div v-if="showAdvancedRates" class="rates-grid">
-            <label>养老保险 <div><input v-model.number="state.rates.pension" type="number" step="0.1" /><span>%</span></div></label>
-            <label>医疗保险 <div><input v-model.number="state.rates.medical" type="number" step="0.1" /><span>%</span></div></label>
-            <label>失业保险 <div><input v-model.number="state.rates.unemployment" type="number" step="0.1" /><span>%</span></div></label>
-            <label>住房公积金 <div><input v-model.number="state.rates.housing" type="number" min="0" max="7" step="1" /><span>%</span></div></label>
-            <label>补充公积金 <div><input v-model.number="state.rates.supplementalHousing" type="number" min="0" max="5" step="1" /><span>%</span></div></label>
+            <label>养老保险 <div><input v-model.number="state.rates.pension" type="number" step="0.1"><span>%</span></div></label>
+            <label>医疗保险 <div><input v-model.number="state.rates.medical" type="number" step="0.1"><span>%</span></div></label>
+            <label>失业保险 <div><input v-model.number="state.rates.unemployment" type="number" step="0.1"><span>%</span></div></label>
+            <label>住房公积金 <div><input v-model.number="state.rates.housing" type="number" min="0" max="7" step="1"><span>%</span></div></label>
+            <label>补充公积金 <div><input v-model.number="state.rates.supplementalHousing" type="number" min="0" max="5" step="1"><span>%</span></div></label>
           </div>
         </div>
 
@@ -156,15 +156,15 @@ watch(currentStep, async () => {
                 <div><b>{{ item.name }}</b><small>{{ item.hint }}</small></div>
               </button>
               <div v-if="state.deductions[item.key].enabled" class="deduction-fields">
-                <label>本人每月扣除额<div class="inline-input compact"><span>¥</span><input v-model.number="state.deductions[item.key].amount" type="number" min="0" :max="item.max" /></div></label>
+                <label>本人每月扣除额<div class="inline-input compact"><span>¥</span><input v-model.number="state.deductions[item.key].amount" type="number" min="0" :max="item.max"></div></label>
                 <label>适用月份<div class="month-range"><select v-model.number="state.deductions[item.key].startMonth"><option v-for="m in 12" :key="m" :value="m">{{ m }} 月</option></select><i>至</i><select v-model.number="state.deductions[item.key].endMonth"><option v-for="m in 12" :key="m" :value="m">{{ m }} 月</option></select></div></label>
               </div>
             </article>
           </div>
 
           <div class="annual-fields">
-            <label><span>大病医疗年度可扣除额 <small>仅年度汇算：医保目录内自付超过 15,000 元的部分，最高 80,000 元</small></span><div class="inline-input compact"><span>¥</span><input v-model.number="state.annualMedicalDeduction" type="number" min="0" max="80000" /></div></label>
-            <label><span>其他税前扣除 <small>如符合规定的企业年金、商业健康保险等，每月金额</small></span><div class="inline-input compact"><span>¥</span><input v-model.number="state.otherMonthlyDeduction" type="number" min="0" /></div></label>
+            <label><span>大病医疗年度可扣除额 <small>仅年度汇算：医保目录内自付超过 15,000 元的部分，最高 80,000 元</small></span><div class="inline-input compact"><span>¥</span><input v-model.number="state.annualMedicalDeduction" type="number" min="0" max="80000"></div></label>
+            <label><span>其他税前扣除 <small>如符合规定的企业年金、商业健康保险等，每月金额</small></span><div class="inline-input compact"><span>¥</span><input v-model.number="state.otherMonthlyDeduction" type="number" min="0"></div></label>
           </div>
         </div>
 
