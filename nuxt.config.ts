@@ -1,27 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import tailwindcss from "@tailwindcss/vite";
-import pkg from './package.json';
+import tailwindcss from '@tailwindcss/vite'
+import pkg from './package.json'
 
 export default defineNuxtConfig({
   devtools: { enabled: false },
   compatibilityDate: '2025-09-06',
   css: ['~/assets/css/tailwind.css'],
   ssr: true,
-  modules: ['shadcn-nuxt', '@nuxtjs/color-mode'],
-  shadcn: {
-    /**
-     * Prefix for all the imported component
-     */
-    prefix: '',
-    /**
-     * Directory that the component lives in.
-     * @default "./app/components/ui"
-     */
-    componentDir: './app/components/ui'
-  },
-  colorMode: {
-    classSuffix: ''
-  },
+  modules: ['@nuxt/eslint'],
   nitro: {
     preset: 'static',
     compressPublicAssets: false,
@@ -78,5 +64,5 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       ]
     }
-  }
-});
+  },
+})
