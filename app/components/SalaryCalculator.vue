@@ -4,7 +4,8 @@ import {
   ArrowLeft, ArrowRight, Check, ChevronDown, CircleCheck,
   Download, Info,
 } from '@lucide/vue'
-import { deductionCatalog, useSalaryCalculator } from '@/composables/useSalaryCalculator'
+import { useSalaryCalculator } from '@/composables/useSalaryCalculator'
+import { rangesAreEqual } from '@/utils/cityPolicies'
 import SalaryCalculatorLiveEstimate from './SalaryCalculatorLiveEstimate.vue'
 import SalaryCalculatorStepper from './SalaryCalculatorStepper.vue'
 
@@ -17,8 +18,10 @@ const steps = [
 
 const {
   currentStep, salaryMode, showAdvancedRates, showFormula, exportingExcel, state,
-  policy, result, averageMonthlyNet, averageMonthlyFinalIncome, averageContributions,
-  progress, canContinue, money, setYear, toggleDeduction, next, previous, editStep, exportExcel,
+  cityPolicy, policy, deductionCatalog, supplementalHousingMax, supplementalHousingHint,
+  result, averageMonthlyNet, averageMonthlyFinalIncome, averageContributions,
+  progress, canContinue, money, setYear, setCity, toggleDeduction, next, previous, editStep, exportExcel,
+  cityOptions, supportedYears,
 } = useSalaryCalculator()
 
 watch(currentStep, async () => {
@@ -41,7 +44,7 @@ watch(currentStep, async () => {
   <main class="app-shell">
     <header class="journey-header">
       <section class="hero">
-        <div class="hero-kicker"><span>收入台账</span><b>上海 · {{ state.year }}</b></div>
+        <div class="hero-kicker"><span>收入台账</span><b>{{ cityPolicy.name }} · {{ state.year }}</b></div>
         <h1>把工资，<em>算明白。</em></h1>
         <p>从税前数字到每月实发，逐项核对社保、公积金与个税。</p>
       </section>
@@ -56,18 +59,31 @@ watch(currentStep, async () => {
 
     <div class="workspace">
       <section class="wizard-card">
-        <div v-if="currentStep === 0" class="step-content no-scroll">
+        <div v-if="currentStep === 0" class="step-content">
           <div class="section-heading">
             <span class="section-index">01</span>
-            <div><h2>先记下你的工资</h2><p>选择计算年度，再输入每月税前工资（五险一金扣除前）。</p></div>
+            <div><h2>先选择城市和年度</h2><p>政策按主要工作城市匹配，再输入每月税前工资（五险一金扣除前）。</p></div>
+          </div>
+
+          <div class="field-block">
+            <label>参保与公积金缴存城市</label>
+            <div class="city-grid">
+              <button
+                v-for="city in cityOptions" :key="city.code" class="choice-card"
+                :class="{ selected: state.city === city.code }" :aria-pressed="state.city === city.code"
+                @click="setCity(city.code)">
+                <CircleCheck v-if="state.city === city.code" :size="18" />
+                <span>{{ city.name }}</span>
+              </button>
+            </div>
           </div>
 
           <div class="field-block">
             <label>计算年度</label>
             <div class="year-grid">
               <button
-                v-for="year in [2023, 2024, 2025, 2026]" :key="year" class="choice-card"
-                :class="{ selected: state.year === year }" @click="setYear(year)">
+                v-for="year in supportedYears" :key="year" class="choice-card"
+                :class="{ selected: state.year === year }" :aria-pressed="state.year === year" @click="setYear(year)">
                 <CircleCheck v-if="state.year === year" :size="18" />
                 <span>{{ year }} 年</span>
               </button>
@@ -76,7 +92,7 @@ watch(currentStep, async () => {
 
           <div class="policy-note">
             <Info :size="18" />
-            <div><b>{{ policy.label }}已匹配</b><p>1–6 月与 7–12 月的缴费上下限会分别计算，避免把跨年度政策混用。</p></div>
+            <div><b>{{ cityPolicy.name }} {{ policy.label }}已匹配</b><p>核验于 {{ policy.verifiedOn }}。1–6 月与 7–12 月分别计算；标记为暂行的区间沿用最近已公布标准。</p></div>
           </div>
 
           <div class="field-block">
@@ -109,16 +125,17 @@ watch(currentStep, async () => {
 
           <div class="policy-note warm">
             <Info :size="18" />
-            <div><b>为什么要分上下半年？</b><p>上海社保与公积金年度都在 7 月切换。若单位申报数低于或高于政策范围，计算时会自动按下限或上限封顶。</p></div>
+            <div><b>为什么要分上下半年？</b><p>多地会在年中调整社保或公积金口径。申报数超出范围时，将按对应险种的上下限分别计算。</p></div>
           </div>
 
           <div class="period-cards">
             <article v-for="(period, index) in policy.periods" :key="index" class="period-card">
               <div class="period-title"><span>{{ index === 0 ? '1–6 月' : '7–12 月' }}</span><small>{{ index === 0 ? '上半年度' : '下半年度' }}</small></div>
               <label>社保申报工资<div class="inline-input"><span>¥</span><input v-model.number="state.socialBases[index]" type="number" min="0"></div></label>
-              <p>政策范围 ¥{{ money(period.socialMin, 0) }} – ¥{{ money(period.socialMax, 0) }}</p>
+              <p v-if="rangesAreEqual(period)">社保范围 ¥{{ money(period.pension.min, 0) }} – ¥{{ money(period.pension.max, 0) }}</p>
+              <p v-else class="range-list">养老 ¥{{ money(period.pension.min, 0) }}–{{ money(period.pension.max, 0) }} · 医疗 ¥{{ money(period.medical.min, 0) }}–{{ money(period.medical.max, 0) }} · 失业 ¥{{ money(period.unemployment.min, 0) }}–{{ money(period.unemployment.max, 0) }}</p>
               <label>公积金申报工资<div class="inline-input"><span>¥</span><input v-model.number="state.housingBases[index]" type="number" min="0"></div></label>
-              <p>政策范围 ¥{{ money(period.housingMin, 0) }} – ¥{{ money(period.housingMax, 0) }}</p>
+              <p>政策范围 ¥{{ money(period.housing.min, 0) }} – ¥{{ money(period.housing.max, 0) }} <b v-if="period.provisional">暂行</b></p>
             </article>
           </div>
 
@@ -129,8 +146,10 @@ watch(currentStep, async () => {
             <label>养老保险 <div><input v-model.number="state.rates.pension" type="number" step="0.1"><span>%</span></div></label>
             <label>医疗保险 <div><input v-model.number="state.rates.medical" type="number" step="0.1"><span>%</span></div></label>
             <label>失业保险 <div><input v-model.number="state.rates.unemployment" type="number" step="0.1"><span>%</span></div></label>
-            <label>住房公积金 <div><input v-model.number="state.rates.housing" type="number" min="0" max="7" step="1"><span>%</span></div></label>
-            <label>补充公积金 <div><input v-model.number="state.rates.supplementalHousing" type="number" min="0" max="5" step="1"><span>%</span></div></label>
+            <label>住房公积金 <div><input v-model.number="state.rates.housing" type="number" :min="cityPolicy.housingRate[0]" :max="cityPolicy.housingRate[1]" step="1"><span>%</span></div></label>
+            <label>补充公积金 <div><input v-model.number="state.rates.supplementalHousing" type="number" min="0" :max="supplementalHousingMax" :disabled="supplementalHousingMax === 0" step="1"><span>%</span></div></label>
+            <p v-if="state.rates.medicalFixed" class="rate-footnote">另计医疗保险固定缴费 ¥{{ money(state.rates.medicalFixed, 0) }}/月</p>
+            <p class="rate-footnote">{{ supplementalHousingHint }}</p>
           </div>
         </div>
 
@@ -196,7 +215,7 @@ watch(currentStep, async () => {
                     </tr>
                     <tr v-if="showFormula === month.month" class="formula-row"><td colspan="7">
                       <div class="formula-grid">
-                        <span>社保基数 <b>¥{{ money(month.socialBase) }}</b></span><span>公积金基数 <b>¥{{ money(month.housingBase) }}</b></span><span>养老 8% <b>¥{{ money(month.pension) }}</b></span><span>医疗 2% <b>¥{{ money(month.medical) }}</b></span><span>失业 0.5% <b>¥{{ money(month.unemployment) }}</b></span><span>公积金 {{ state.rates.housing }}% <b>¥{{ money(month.housing) }}</b></span>
+                        <span>养老基数 <b>¥{{ money(month.pensionBase) }}</b></span><span>医疗基数 <b>¥{{ money(month.medicalBase) }}</b></span><span>失业基数 <b>¥{{ money(month.unemploymentBase) }}</b></span><span>公积金基数 <b>¥{{ money(month.housingBase) }}</b></span><span>养老 {{ state.rates.pension }}% <b>¥{{ money(month.pension) }}</b></span><span>医疗 {{ state.rates.medical }}% <b>¥{{ money(month.medical) }}</b></span><span>失业 {{ state.rates.unemployment }}% <b>¥{{ money(month.unemployment) }}</b></span><span>公积金 {{ state.rates.housing }}% <b>¥{{ money(month.housing) }}</b></span>
                       </div>
                       <p>截至本月累计应纳税所得额 ¥{{ money(month.cumulativeTaxable) }}，适用预扣率 {{ month.taxRate * 100 }}%。本月个税 = 累计应纳税额 − 此前已预扣税额。</p>
                     </td></tr>
@@ -220,6 +239,7 @@ watch(currentStep, async () => {
       </section>
 
       <SalaryCalculatorLiveEstimate
+        :city-name="cityPolicy.name"
         :year="state.year"
         :result="result"
         :average-monthly-net="averageMonthlyNet"

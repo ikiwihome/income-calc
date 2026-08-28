@@ -1,4 +1,4 @@
-import { getPeriodPolicy } from './shanghaiPolicy'
+import { getPeriodPolicy, type CityCode } from './cityPolicies'
 
 const TAX_BRACKETS = [
   { max: 36000, rate: 0.03, quick: 0 },
@@ -13,6 +13,7 @@ const TAX_BRACKETS = [
 export type ContributionRates = {
   pension: number
   medical: number
+  medicalFixed: number
   unemployment: number
   housing: number
   supplementalHousing: number
@@ -28,6 +29,7 @@ export type DeductionItem = {
 }
 
 export type CalculatorInput = {
+  city: CityCode
   year: number
   salaries: number[]
   socialBases: [number, number]
@@ -42,7 +44,9 @@ export type CalculatorInput = {
 export type MonthResult = {
   month: number
   gross: number
-  socialBase: number
+  pensionBase: number
+  medicalBase: number
+  unemploymentBase: number
   housingBase: number
   pension: number
   medical: number
@@ -97,15 +101,17 @@ export function calculateSalary(input: CalculatorInput): CalculationResult {
   input.salaries.forEach((rawSalary, index) => {
     const month = index + 1
     const gross = cents(Math.max(0, Number(rawSalary) || 0))
-    const period = getPeriodPolicy(input.year, month)
+    const period = getPeriodPolicy(input.city, input.year, month)
     const half = month <= 6 ? 0 : 1
-    const socialBase = cents(clamp(input.socialBases[half] || gross, period.socialMin, period.socialMax))
-    const housingBase = cents(clamp(input.housingBases[half] || gross, period.housingMin, period.housingMax))
+    const declaredSocialBase = input.socialBases[half] || gross
+    const pensionBase = cents(clamp(declaredSocialBase, period.pension.min, period.pension.max))
+    const medicalBase = cents(clamp(declaredSocialBase, period.medical.min, period.medical.max))
+    const unemploymentBase = cents(clamp(declaredSocialBase, period.unemployment.min, period.unemployment.max))
+    const housingBase = cents(clamp(input.housingBases[half] || gross, period.housing.min, period.housing.max))
 
-    const pension = cents(socialBase * input.rates.pension / 100)
-    const medical = cents(socialBase * input.rates.medical / 100)
-    const unemployment = cents(socialBase * input.rates.unemployment / 100)
-    // 上海口径：职工与单位公积金月缴额分别计算到元，元以下四舍五入。
+    const pension = cents(pensionBase * input.rates.pension / 100)
+    const medical = cents(medicalBase * input.rates.medical / 100 + input.rates.medicalFixed)
+    const unemployment = cents(unemploymentBase * input.rates.unemployment / 100)
     const housing = yuan(housingBase * input.rates.housing / 100)
     const supplementalHousing = yuan(housingBase * input.rates.supplementalHousing / 100)
     const contributions = cents(pension + medical + unemployment + housing + supplementalHousing)
@@ -126,7 +132,7 @@ export function calculateSalary(input: CalculatorInput): CalculationResult {
     cumulativeWithheld = cents(cumulativeWithheld + tax)
 
     months.push({
-      month, gross, socialBase, housingBase, pension, medical, unemployment, housing,
+      month, gross, pensionBase, medicalBase, unemploymentBase, housingBase, pension, medical, unemployment, housing,
       supplementalHousing, contributions, specialDeduction, otherDeduction,
       cumulativeTaxable, taxRate: cumulativeTax.rate, tax,
       net: cents(gross - contributions - tax),

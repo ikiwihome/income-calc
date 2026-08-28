@@ -2,6 +2,7 @@
 import type { CalculationResult } from '@/utils/taxCalculator'
 
 defineProps<{
+  cityName: string
   year: number
   result: CalculationResult
   averageMonthlyNet: number
@@ -27,7 +28,7 @@ const money = (value: number) => new Intl.NumberFormat('zh-CN', {
       <div class="receipt-edge" aria-hidden="true" />
       <div class="live-card-heading">
         <span class="live-label">PAYSLIP <b>实时工资条</b></span>
-        <small>上海 / {{ year }}</small>
+        <small>{{ cityName }} / {{ year }}</small>
       </div>
       <div class="net-amount">
         <p>当前月均实发</p><strong><small>¥</small>{{ money(averageMonthlyNet) }}</strong>

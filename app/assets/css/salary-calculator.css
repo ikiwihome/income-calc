@@ -52,7 +52,12 @@
   .field-block { @apply mt-[26px]; }
   .field-block > label { @apply mb-2.5 block text-[13px] font-bold text-[#2a3833]; }
   .year-grid { @apply grid grid-cols-4 gap-2.5; }
-  .month-grid { @apply mt-6 grid grid-cols-3 gap-3; }
+  .city-grid { @apply grid grid-cols-4 gap-2.5; }
+  .city-grid .choice-card { min-height: 44px; }
+  .range-list { line-height: 1.55; }
+  .period-card p b { color: #b54f39; font-size: 10px; }
+  .rate-footnote { @apply col-span-full m-0 text-xs text-[#697188]; }
+  .month-grid { @apply mt-6 grid grid-cols-4 gap-3; }
   .period-cards, .method-switch, .deduction-list { @apply grid grid-cols-2; }
   .rates-grid { @apply grid grid-cols-3 gap-[11px] pt-[15px]; }
 
@@ -80,6 +85,7 @@
   .inline-input.compact { @apply h-[34px]; }
   .inline-input span, .month-grid i { @apply pl-[11px] text-[#2d8061] not-italic; }
   .inline-input input, .month-grid input { @apply w-full min-w-0 border-0 bg-transparent px-[9px] text-sm outline-0; }
+  .rates-grid input:disabled { @apply cursor-not-allowed opacity-45; }
   .month-grid label > span { @apply mb-1 block text-xs text-[#64716c]; }
   .salary-field small { @apply mt-2 block text-xs text-[#85918c]; }
 
@@ -211,7 +217,6 @@
   .workspace { @apply min-h-[510px] pb-px; height: calc(100dvh - 133px); }
   .wizard-card { @apply flex h-full flex-col; }
   .step-content { @apply min-h-0 flex-1 overflow-y-auto px-[34px] pt-[18px] pb-3.5; overscroll-behavior: contain; scrollbar-gutter: stable; }
-  .step-content.no-scroll { overflow-y: hidden; scrollbar-gutter: auto; }
   .step-content.results-step { @apply p-0; }
   .section-heading { @apply mb-[17px]; }
   .section-heading h2 { @apply text-[22px]; }
@@ -277,7 +282,7 @@
   .workspace { @apply px-3 pb-[45px]; }
   .step-content { @apply min-h-0 px-5 pt-[27px] pb-6; }
   .wizard-actions { @apply px-5 py-[15px]; }
-  .year-grid, .month-grid, .rates-grid, .summary-grid, .formula-grid { @apply grid-cols-2; }
+  .year-grid, .city-grid, .month-grid, .rates-grid, .summary-grid, .formula-grid { @apply grid-cols-2; }
   .period-cards, .deduction-list, .method-switch { @apply grid-cols-1; }
   .period-card label { @apply grid-cols-[1fr_130px]; }
   .deduction-fields { @apply ml-0; }

@@ -1,12 +1,13 @@
 import type { CalculationResult, ContributionRates } from './taxCalculator'
-import type { ShanghaiPolicy } from './shanghaiPolicy'
+import type { CityYearPolicy } from './cityPolicies'
 
 type ExportSalaryWorkbookInput = {
+  cityName: string
   year: number
   result: CalculationResult
   averageMonthlyNet: number
   rates: ContributionRates
-  policy: ShanghaiPolicy
+  policy: CityYearPolicy
 }
 
 type StyledCell = {
@@ -48,7 +49,7 @@ export async function exportSalaryWorkbook(input: ExportSalaryWorkbookInput) {
   }
 
   const summaryRows = [
-    [`上海工资税后收入测算（${input.year} 年）`, null],
+    [`${input.cityName}工资税后收入测算（${input.year} 年）`, null],
     ['指标', '金额（元）'],
     ['全年税前工资', input.result.annualGross],
     ['个人五险一金', input.result.annualContributions],
@@ -122,28 +123,30 @@ export async function exportSalaryWorkbook(input: ExportSalaryWorkbookInput) {
   XLSX.utils.book_append_sheet(workbook, monthSheet, '逐月明细')
 
   const policyRows: Array<Array<string | number>> = [
-    [`上海工资计算参数（${input.year} 年）`, '', '', '', ''],
-    ['期间', '社保下限', '社保上限', '公积金下限', '公积金上限'],
+    [`${input.cityName}工资计算参数（${input.year} 年）`, '', '', '', '', '', '', '', ''],
+    ['期间', '养老下限', '养老上限', '医疗下限', '医疗上限', '失业下限', '失业上限', '公积金下限', '公积金上限'],
     ...input.policy.periods.map((period, index) => [
       index === 0 ? '1–6 月' : '7–12 月',
-      period.socialMin, period.socialMax, period.housingMin, period.housingMax,
+      period.pension.min, period.pension.max, period.medical.min, period.medical.max,
+      period.unemployment.min, period.unemployment.max, period.housing.min, period.housing.max,
     ]),
     [],
     ['个人缴费比例', '比例'],
     ['养老保险', input.rates.pension / 100],
     ['医疗保险', input.rates.medical / 100],
+    ['医疗固定缴费（元/月）', input.rates.medicalFixed],
     ['失业保险', input.rates.unemployment / 100],
     ['住房公积金', input.rates.housing / 100],
     ['补充公积金', input.rates.supplementalHousing / 100],
   ]
   const policySheet = XLSX.utils.aoa_to_sheet(policyRows)
-  policySheet['!cols'] = [{ wch: 34 }, { wch: 18 }, { wch: 18 }, { wch: 18 }, { wch: 18 }]
+  policySheet['!cols'] = [{ wch: 34 }, ...Array(8).fill({ wch: 15 })]
   policySheet['!rows'] = [{ hpt: 32 }, ...Array(policyRows.length - 1).fill({ hpt: 23 })]
-  policySheet['!merges'] = [XLSX.utils.decode_range('A1:E1')]
-  applyStyle(policySheet, `A1:E${policyRows.length}`, baseStyle)
-  applyStyle(policySheet, 'A1:E1', titleStyle)
-  for (const headerRow of [2, 6]) applyStyle(policySheet, `A${headerRow}:E${headerRow}`, headerStyle)
-  for (let row = 7; row <= 11; row += 1) {
+  policySheet['!merges'] = [XLSX.utils.decode_range('A1:I1')]
+  applyStyle(policySheet, `A1:I${policyRows.length}`, baseStyle)
+  applyStyle(policySheet, 'A1:I1', titleStyle)
+  for (const headerRow of [2, 6]) applyStyle(policySheet, `A${headerRow}:I${headerRow}`, headerStyle)
+  for (const row of [7, 8, 10, 11, 12]) {
     const cell = policySheet[`B${row}`]
     if (cell) cell.z = '0.0%'
   }
@@ -155,7 +158,7 @@ export async function exportSalaryWorkbook(input: ExportSalaryWorkbookInput) {
   }))
   const link = document.createElement('a')
   link.href = downloadUrl
-  link.download = `上海工资到手收入测算_${input.year}.xlsx`
+  link.download = `${input.cityName}工资到手收入测算_${input.year}.xlsx`
   document.body.appendChild(link)
   link.click()
   link.remove()
